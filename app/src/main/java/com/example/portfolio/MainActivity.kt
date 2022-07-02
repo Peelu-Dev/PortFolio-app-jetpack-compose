@@ -13,6 +13,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -48,20 +49,25 @@ fun CreateBizCard(){
         shape = RoundedCornerShape(corner = CornerSize(15.dp)),
             elevation = 4.dp
         ) {
-            Surface(modifier = Modifier
-                .size(150.dp)
-                .padding(5.dp),
-                shape = CircleShape,
-                color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
-                border = BorderStroke(0.5.dp, Color.LightGray),
-                elevation = 4.dp
-            ) {
-                Image(painter = painterResource(id = R.drawable.avatar),
-                    contentDescription = "Profile picture",
-                    modifier = Modifier.size(135.dp),
-                    contentScale = ContentScale.Crop
-                )
+            Column(modifier = Modifier.height(300.dp),
+            verticalArrangement = Arrangement.Top,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+                Surface(modifier = Modifier
+                    .size(150.dp)
+                    .padding(5.dp),
+                    shape = CircleShape,
+                    color = MaterialTheme.colors.onSurface.copy(alpha = 0.5f),
+                    border = BorderStroke(0.5.dp, Color.LightGray),
+                    elevation = 4.dp
+                ) {
+                    Image(painter = painterResource(id = R.drawable.avatar),
+                        contentDescription = "Profile picture",
+                        modifier = Modifier.size(135.dp),
+                        contentScale = ContentScale.Crop
+                    )
+                }
             }
+
         }
     }
 }
