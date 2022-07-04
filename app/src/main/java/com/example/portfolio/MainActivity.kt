@@ -6,11 +6,15 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -39,6 +43,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun CreateBizCard(){
+    // For remembering and toggling the state
+    val buttonClickedState = remember {
+        mutableStateOf(false)
+    }
     Surface(modifier = Modifier.fillMaxSize()) {
         Card(modifier = Modifier
             .width(200.dp)
@@ -57,8 +65,49 @@ fun CreateBizCard(){
                     modifier = Modifier.padding(4.dp)
                 )
                 CreateInfoCard()
+                // Added Button
+                Button(onClick = {
+                    buttonClickedState.value = !buttonClickedState.value
+                }) {
+                    Text(text = "PortFolio",
+                    style = MaterialTheme.typography.button)
+                }
+                if(buttonClickedState.value){
+                    Content()
+                }else{
+                    Box {
+                        
+                    }
+                }
             }
 
+        }
+    }
+}
+
+// created content function
+//@Preview
+@Composable
+private fun Content(){
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .padding(5.dp)) {
+        Surface(modifier = Modifier
+            .fillMaxSize()
+            .padding(3.dp),
+        shape = RoundedCornerShape(corner = CornerSize(6.dp)),
+        border = BorderStroke(width = 2.dp, color = Color.Blue)
+        ) {
+            Portfolio(data = listOf("Project1","project2","Project3"))
+        }
+    }
+}
+
+@Composable
+fun Portfolio(data: List<String>) {
+    LazyColumn{
+        items(data){ item ->
+            Text(item)
         }
     }
 }
@@ -85,7 +134,7 @@ private fun CreateInfoCard() {
 }
 
 @Composable
-private fun CreateProfileImage(modifier: Modifier=Modifier) {
+private fun CreateProfileImage() {
     Surface(
         modifier = Modifier
             .size(150.dp)
